@@ -52,7 +52,7 @@ $^{4}$sqgong@ecust.edu.cn
 %% [use \begin{abstract*}...\end{abstract*} if exempt from copyright]
 
 \begin{abstract}
-The high-order harmonic generation in a polar medium ( a medium with a permanent dipole moment) driven by a chirped few-cycle laser pulse is investigated via numerically solving the nonlinear Bloch equations or Maxwell-Bloch equations if taking the propagation effect into account. The time-frequency characteristic of the harmonic is analyzed by means of the wavelet transform to induced time-dependent dipole moment. The simulation results demonstrate that, the harmonic cutoff energy can be dramatically extended as a result of the existence of the permanent dipole moment, and the quantum trajectory number for plateau harmonics can be largely reduced due to the introduce of chirps to driving laser pulse. Correspondingly, an attosecond pulse pair (APP) can be generated. Moreover, the propagation effect can make the APP's intensity enhanced by one order at a suitable propagation distance with almost no duration broadening, and the latter can be modulated by changing the medium's density.
+The high-order harmonic generation in a polar medium ( a medium with a permanent dipole moment) driven by a chirped few-cycle laser pulse is investigated via numerically solving the nonlinear Bloch equations or Maxwell-Bloch equations if taking the propagation effect into account. The time-frequency characteristic of the harmonic is analyzed by means of the wavelet transform to induced time-dependent dipole moment. The simulation results demonstrate that, the harmonic cutoff energy can be dramatically extended as a result of the existence of the permanent dipole moment, and the quantum trajectory number for plateau harmonics can be largely reduced due to the introduce of chirps to the laser driver. Consequently, an attosecond pulse pair (APP) is generated instead of a general attosecond pulse train. In addition, the propagation effect can make the APP's intensity enhanced by one order at a suitable propagation distance with small duration broadening, and the enhancement process can be modulated by changing the medium's density.
 \end{abstract}
 
 \ocis{(140.7090) Ultralfast lasers; (190.4180) Multiphoton processes; (320.7110) Ultrafast nonlinear optics; (190.5530) Pulse propagation and solitons.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE, MINIMUM OF TWO; Avoid using the OCIS codes for “General” or “General science” whenever possible.
@@ -150,6 +150,8 @@ The high-order harmonic generation in a polar medium ( a medium with a permanent
 \bibitem{Yee}K. S. Yee, ``Numerical solution of initial boundary value problems involing Maxwell's equations in isotropic media," \aprop {\bf 14}, 302--307 (1966).
 
 \bibitem{Mur-Absorption}G. Mur, ``Absorbing boundary conditions for the finite-difference approximation of the time-domain electromagnetic-field equations," IEEE. Trans. Electronmagn. Compat. {\bf EMC-23}, 377--382 (1981).
+
+\bibitem{Chirp-Reference-2013PRA}P. Kumar and A. K. Sarma, ``Ultrafast and selective coherent population transfer in four-level atoms by a single nonlinearly chirped femtosecond pulse," \pra {\bf 88}(3), 033823 (2013).
 	
 \end{thebibliography}
 
@@ -168,13 +170,13 @@ Based on the above, therefore, this paper proposes that one can control the matt
 \section{Theoretical models and methods}
 For the two cases of propagation considered or not, both the simulation model and the numerical solving method are different. In simple terms, here, non-propagation case need to solve the nonlinear Bloch equations by Runge-Kutta method and the propagation case need to solve the Maxwell-Bloch equations by finite-difference time-domain (FDTD) method. The two models and their corresponding solving methods will be introduced separately.
 
-First for the non-propagation case. Consider a two-level system where $\left| {\rm{1}} \right\rangle$ and $\left| {\rm{2}} \right\rangle$ represent the ground and excited states with the energy separation $ \omega_0 $ [Atomic units (a.u.) are used in this paper, unless otherwise mentioned]. Within this picture, the time-dependent wave function is
+The non-propagation case is introduced first. Consider a two-level system where $\left| {\rm{1}} \right\rangle$ and $\left| {\rm{2}} \right\rangle$ represent the ground and excited states with the energy separation $ \omega_0 $ [Atomic units (a.u.) are used in this paper, unless otherwise mentioned]. Within this picture, the time-dependent wave function is
 
 \begin{equation}
 \left| {\varPsi \left( t \right)} \right\rangle  = {c_1}(t)\left| 1 \right\rangle  + {c_2}(t)\left| 2 \right\rangle,
 \label{eq1}
 \end{equation}
-where $ c_{\rm{i}}(t) = \left\langle {\rm{i}} | \varPsi \left( t \right) \right\rangle(\rm{i}=1,2) $ denotes the overlap of the total wave function with the $\rm{i}^{th}$ state.
+where $ c_{i}(t) = \left\langle {i} | \varPsi \left( t \right) \right\rangle(i=1,2) $ denotes the overlap of the total wave function with the $i^{th}$ state.
 
 A semi-classical model is adopted in which the quantum system interacts with the classical laser field. The total Hamiltonian describing the interaction of the laser field with the two-level system which has permanent dipole moments is \cite{YangWeifeng-Two-Level-PLA-2007}
 
@@ -194,69 +196,57 @@ where $ \mu_{\rm{ij}} $ are the dipole moment matrix elements, and ${E_1} =  - {
 E(t) = {E_0}\exp \left[ { - 4\ln 2{{\left( {t/\tau } \right)}^2}} \right]\cos \left[ {{\omega _L}t + \varphi \left( t \right)} \right],
 \label{eq3}
 \end{equation}
-where $ E_{0} $ is the field amplitude, $ \tau $ is the duration (full width at half maximum, FWHM), $ \omega_{\rm{L}} $ is the field angular frequency, and $ \varphi(t) $ is the time-dependent carrier envelope phase.
-
-Finally, the system dynamics can be described by the following nonlinear Bloch equations:
+where $ E_{0} $ is the field amplitude, $ \tau $ is the duration (full width at half maximum, FWHM), $ \omega_{\rm{L}} $ is the field angular frequency, and $ \varphi(t) $ is the time-dependent carrier envelope phase. The system dynamics can be described by the following nonlinear Bloch equations \cite{Ziolkowski-Two-Level-Method-PRA-1995,CuiNi2010NJP-wavelet}:
 
 \begin{equation}
- {\partial _t}{u}\left( {t} \right) = {\omega _0}{v}\left( t \right) + 2\xi \Omega \left( t \right){v}\left( t \right),
+\begin{array}{l}
+\smallskip
+{\partial _t}u(t) = {\omega _0}v(t) + 2\xi \Omega (t)v(t),\\
+\smallskip
+{\partial _t}v(t) =  - {\omega _0}u(t) + 2\Omega (t)w(t) - 2\xi \Omega (t)u(t),\\
+\smallskip
+{\partial _t}w(t) =  - 2\Omega (t)v(t).
+\end{array}
 \label{eq4}
 \end{equation}
-\begin{equation}
-{\partial _t}{v}\left( {t} \right) =  - {\omega _0}{u}\left( t \right) + 2\Omega \left( t \right){w}\left( t \right) - 2\xi \Omega \left( t \right){u}\left( t \right),
-\label{eq5}
-\end{equation}
-\begin{equation}
-{\partial _t}{w}\left( {t} \right) =  - 2\Omega \left( t \right){v}\left( t \right).
-\label{eq6}
-\end{equation}
-Where, $ u(t) $ and $ v(t) $ are the mean real and imaginary parts of polarization, respectively, $ w(t) $ is the mean population difference. $\Omega\left( t \right) = - \vec{\mu}_{21}\vec{E}\left(t\right)=\Omega_{0}/E_{0}\cdot E\left(t\right)$ is the Rabi frequency of the incident laser field with peak value of ${\Omega _0} =  - {\mu _{21}}{E_0}$, $\xi  = {{\left( {{\mu _{22}} - {\mu _{11}}} \right)} \mathord{\left/{\vphantom {{\left( {{\mu _{22}} - {\mu _{11}}} \right)} {2{\mu _{21}}}}} \right.\kern-\nulldelimiterspace} {2{\mu _{21}}}}$ is a dimensionless parameter which characterizes the permanent dipole moment. In the two-level model, the main observable of interest is $u(t)$, which leads to the coherent part of the light spectrum by Fourier transform
+
+Where, $ u(t) $ and $ v(t) $ are the real and imaginary parts of the polarization, respectively, $ w(t) $ is the population inversion. $\Omega\left( t \right) = - \vec{\mu}_{21}\vec{E}\left(t\right)=\Omega_{0}/E_{0}\cdot E\left(t\right)$ is the Rabi frequency of the incident laser field with peak value of ${\Omega _0} =  - {\mu _{21}}{E_0}$, $\xi  = {{\left( {{\mu _{22}} - {\mu _{11}}} \right)} \mathord{\left/{\vphantom {{\left( {{\mu _{22}} - {\mu _{11}}} \right)} {2{\mu _{21}}}}} \right.\kern-\nulldelimiterspace} {2{\mu _{21}}}}$ is a dimensionless parameter which characterizes the permanent dipole moment. 
+
+In the two-level model, the main observable of interest is $u(t)$, which is related to the coherent part of the light spectrum by Fourier transform
 
 \begin{equation}
 P(\omega)= \left| \textrm{d}t\exp(i\omega t)\bar{N}u(t)\right|^2.
-\label{eq7}
+\label{eq5}
 \end{equation}
-Where $ \bar{N} $ is density of the medium, it is introduced here for the consistency with propagation situation discussed later. It is chosen as $ \bar{N}=7.5\times10^{24} \textrm{m}^{-3}$ for both the propagation and non-propagation cases. The system of evolution Eqs. (\ref{eq4})--(\ref{eq6}) can be solved numerically without making rotating-wave approximation by means of a fourth-order Runge-Kutta method. The Fourier transform is performed using the Fast Fourier transform algorithm.
+Where $\omega$ is the harmonic frequency, $ \bar{N} $ is the medium density and is chosen as $ \bar{N}=7.5\times10^{24} \textrm{m}^{-3}$ for both the propagation and non-propagation cases. By means of the fourth-order Runge-Kutta method Eq. (\ref{eq4}) can be solved numerically without making a rotating-wave approximation. The Fourier transform is performed using the Fast Fourier transform algorithm.
 
-Moreover, the time-frequency analysis is performed to the high-order harmonic generation by using the wavelet transform to the induced dipole moment ${u}\left( t \right)$ in order to investigate the temporal structures of HHG spectrum,
+After light spectrum obtained, time-frequency analysis by wavelet transform is performed to the induced dipole moment ${u}\left( t \right)$ in order to investigate the temporal structures of HHG spectrum,
 
 \begin{equation}
 {A_\omega }\left( {t,\omega } \right) = \int {\bar{N}{u}\left( {t'} \right)} \sqrt \omega  {W}\left[ {\omega \left( {t - t'} \right)} \right]{\rm{d}}t',
-\label{eq8}
+\label{eq6}
 \end{equation}
 where  $ {W}(x) $ is the window function (also called the mother wavelet function) which is given here by the form of Morlet wavelet \cite{CuiNi2010NJP-wavelet,MyOE2013,MyOE2015,TongXiaoMin2000PRA-Wavelet}
 
 \begin{equation}
-{{W}}\left( x \right) = \sqrt {\frac{{\rm{1}}}{{{\tau _{wav}}}}} {e^{ix}}{e^{ - {x^2}/2\tau _{wav}^2}},
-\label{eq9}
+{{W}}\left( x \right) = \sqrt {\frac{{\rm{1}}}{{{\tau _{wav}}}}} {e^{ix}}{e^{ - {x^2}/2\tau _{wav}^2}}.
+\label{eq7}
 \end{equation}
-$ t $ and $ \omega $ denote the time and harmonic frequency at which the window function is centered. The envelope width $ \tau_{\rm{wav}} $ of the wavelet is set to 6.0 in our calculations.
+$ t $ denote the time at which the window function is centered. The envelope width $ \tau_{\rm{wav}} $ of the wavelet is set to 6.0 in our calculations.
 
-As for the propagation case, the Maxwell-Bloch equations should be numerically solved. Now, propagation of a linearly polarized short laser pulse along the $ z $ axis to an input interface of the two-level medium at $ z=L_{1} $ is considered. Initially the pulse propagates in the vacuum of free space, then it penetrates into the medium with some reflects, the penetrating part propagates through the medium and finally exits again into the vacuum through the output interface at $ z=L_{2} $ \cite{Kalosha-Two-Level-PRL-1999}. If the laser field is assumed to polarize along  the $ x $ axis, then the Maxwell-Bloch equations would take the form of
+If taking the propagation effect into account, the Maxwell-Bloch equations should be numerically solved. Now, propagation of a linearly polarized short laser pulse along the $ z $ axis to an input interface of the two-level medium at $ z=L_{1} $ is considered. Initially, the pulse propagates in the vacuum of free space, then it penetrates into the medium with some reflects, the penetrating part propagates through the medium and finally exits again into the vacuum through the output interface at $ z=L_{2} $ \cite{Kalosha-Two-Level-PRL-1999}. If the laser field is assumed to polarize along  the $ x $ axis, then the Maxwell-Bloch equations would take the simultaneous form of Maxwell equations (\ref{eq8}) and Bloch equations (\ref{eq4}) .
 
 \begin{equation}
 \begin{array}{l}
 \smallskip
 {\partial _t}{H_y}\left( {z,t} \right) =  - \frac{1}{{{\mu _0}}}{\partial _z}{E_x}\left( {z,t} \right)\;,\\
 \smallskip
-{\partial _t}{E_x}\left( {z,t} \right) =  - \frac{1}{{{\varepsilon _0}}}{\partial _z}{H_y}\left( {z,t} \right) - \frac{1}{{{\varepsilon _0}}}{\partial _t}{P_x}\left( {z,t} \right)\;,\\
-\smallskip
-{\partial _t}u\left( {z,t} \right) = {\omega _0}v\left( {z,t} \right) + 2\xi \Omega \left( {z,t} \right)v\left( {z,t} \right) - {{u\left( {z,t} \right)} \mathord{\left/
-		{\vphantom {{u\left( {z,t} \right)} {{T_2}}}} \right.
-		\kern-\nulldelimiterspace} {{T_2}}},\\
-\smallskip
-{\partial _t}v\left( {z,t} \right) =  - {\omega _0}u\left( {z,t} \right) + 2\Omega \left( {z,t} \right)w\left( {z,t} \right) - 2\xi \Omega \left( {z,t} \right)u\left( {z,t} \right) - {{v\left( {z,t} \right)} \mathord{\left/
-		{\vphantom {{v\left( {z,t} \right)} {{T_2}}}} \right.
-		\kern-\nulldelimiterspace} {{T_2}}},\\
-\smallskip
-{\partial _t}w\left( {z,t} \right) =  - 2\Omega \left( {z,t} \right)v\left( {z,t} \right) - {{\left[ {w\left( {z,t} \right) - {w_{0}}} \right]} \mathord{\left/
-		{\vphantom {{\left[ {w\left( {z,t} \right) - {w_{0}}} \right]} {{T_1}}}} \right.
-		\kern-\nulldelimiterspace} {{T_1}}}.
+{\partial _t}{E_x}\left( {z,t} \right) =  - \frac{1}{{{\varepsilon _0}}}{\partial _z}{H_y}\left( {z,t} \right) - \frac{1}{{{\varepsilon _0}}}{\partial _t}{P_x}\left( {z,t} \right)\;.\\
 \end{array}
-\label{eq10}
+\label{eq8}
 \end{equation}
 
-Here $ E_{\rm{x}} $, $ H_{\rm{y}} $ is the laser pulse electric and magnetic field, respectively. $\mu_{0}$ and $ \epsilon_{0} $ are the vacuum permeability and vacuum permittivity, respectively. $w_0$ is the initial population difference. Maxwell equations are united with the Bloch equations here, and the physical quantities are not only dependent on the time but also dependent on the propagation distance, $ z $. Here the relaxation time of the two-level medium is considered, where $T_{1}$ is the excited-state lifetime and $T_{2}$ is the dephasing time. It is noted that, for the non-propagation case, the relaxation time are not considered because of that they are much longer than the laser-matter interaction time. $ P_{\rm{x}} $ is the macroscopic nonlinear polarization, and is given for two-level system as expression of \cite{Pan-Ruiqin-Permanent-dipole-moment-2011}
+Here $ E_{\rm{x}} $, $ H_{\rm{y}} $ is the laser pulse electric and magnetic field, respectively. $\mu_{0}$ and $ \epsilon_{0} $ are the vacuum permeability and vacuum permittivity, respectively. $w_0$ is the initial population difference. The physical quantities are not only dependent on the time but also dependent on the propagation distance, $ z $ now. $ P_{x} $ is the macroscopic nonlinear polarization, and is given for two-level system as expression of \cite{Pan-Ruiqin-Permanent-dipole-moment-2011}
 
 \begin{equation}
 \begin{array}{l}
@@ -264,18 +254,18 @@ Here $ E_{\rm{x}} $, $ H_{\rm{y}} $ is the laser pulse electric and magnetic fie
 		\over \mu } \rho } \right)\\
 \;\;\;\;\: =   \bar{N}\left( {{\mu _{11}}{\rho _{11}} + {\mu _{22}}{\rho _{22}} + {\mu _{12}}{\rho _{12}} + {\mu _{21}}{\rho _{21}}} \right)
 \end{array}
-\label{eq11}
+\label{eq9}
 \end{equation}
-where $ \bar{N} $ is the density of the medium, ${\rho _{\rm{ij}}}\left( {\rm{i,j} = 1, 2} \right)$  is the density matrix element for the two-level system. If the system is closed (i.e., the system has no energy exchange with the outside environment),  $ P_{\rm{x}} $ can be further expressed as
+where ${\rho _{\rm{ij}}}\left( {\rm{i,j} = 1, 2} \right)$  is the density matrix element for the two-level system. If the system is closed (i.e., the system has no energy exchange with the outside environment),  $ P_{x} $ can be further expressed as
 
 \begin{equation}
-{P_x} =   \bar{N}{\mu _{21}}u + \bar{N}\xi {\mu _{21}}w + {{\bar{N}\left( {{\mu _{11}} + {\mu _{22}}} \right)} \mathord{\left/
+{P_x} =   \bar{N}[{\mu _{21}}u + \xi {\mu _{21}}w + {{\left( {{\mu _{11}} + {\mu _{22}}} \right)} \mathord{\left/
 		{\vphantom {{N\left( {{\mu _{11}} + {\mu _{22}}} \right)} 2}} \right.
-		\kern-\nulldelimiterspace} 2}.
-\label{eq12}
+		\kern-\nulldelimiterspace} 2}].
+\label{eq10}
 \end{equation}
 
-Eq. (\ref{eq10}) can be solved using Yee's leap-frog FDTD discretization scheme \cite{Yee} with the iterative predictor-corrector method \cite{Ziolkowski-Two-Level-Method-PRA-1995}. Mur absorbing boundary conditions \cite{Mur-Absorption} were incorporated with FDTD discretization which can avoid the unphysical reflection from the finite calculation boundaries. Here, the initial pulse condition is given as
+The Maxwell-Bloch equations can be solved using Yee's leap-frog FDTD discretization scheme \cite{Yee} with the iterative predictor-corrector method \cite{Ziolkowski-Two-Level-Method-PRA-1995}. Mur absorbing boundary conditions \cite{Mur-Absorption} are incorporated with FDTD discretization which can avoid the unphysical reflection from the finite calculation boundaries. Here, the initial pulse condition is given as
 
 \begin{equation}
 \begin{array}{l}
@@ -286,13 +276,15 @@ Eq. (\ref{eq10}) can be solved using Yee's leap-frog FDTD discretization scheme 
 			{\vphantom {{{\varepsilon _0}} {{\mu _0}}}} \right.
 			\kern-\nulldelimiterspace} {{\mu _0}}}} {E_x}\left( {z,t = 0} \right),
 \end{array}
-\label{eq13}
+\label{eq11}
 \end{equation}
 where $ c $ is the light velocity in the vacuum. The choice of $ z_{0} $ can ensure that the pulse penetrates negligibly into the medium at $ t=0 $. In our calculations $ z_{0} $ is set to be $15\;\mu$m.
 
 In the following calculations, unless indicated, the following parameter values are adopted.
-The two-level system is assumed initially in its ground state with an energy separation $\omega_0=0.30\;\textrm{a.u.}$, thus $ u(0)=v(0)=0 $, and $ w(0)=-1 $. The dipole moment matrix element is $\mu_{21}=1.0\times10^{-29}\textrm{Asm}$ (corresponds to $1.18\;\textrm{a.u.}$). As for the driving laser pulse, its center frequency is $ \omega_{\rm{L}}=0.056\;\rm{a.u.}$ corresponding to a wavelength of 814 nm, its pulse duration is $\tau=2T$ (about $ 5.43\;\rm{fs} $, $T$ is the laser period) and its peak Rabi frequency is $ \Omega_{0}=0.30\;\rm{a.u.} $. For the propagation situation, the relaxation time of the two-level medium are: $ T_{1}=1.0\times10^{-12} \textrm{s} $, $ T_{2}=0.5\times10^{-12} \textrm{s} $ \cite{Kalosha-Two-Level-PRL-1999}. 
+The two-level system is assumed initially in its ground state with an energy separation $\omega_0=0.30\;\textrm{a.u.}$, thus $ u(t=0)=v(t=0)=0 $, and $ w(t=0)=-1 $. The dipole moment matrix element is $\mu_{21}=1.0\times10^{-29}\textrm{Asm}$ (corresponds to $1.18\;\textrm{a.u.}$). As for the driving laser pulse, its center frequency is $ \omega_{\rm{L}}=0.056\;\rm{a.u.}$ (corresponds to a wavelength of 814 nm), its pulse duration is $\tau=2T$ (about $ 5.43\;\rm{fs} $, $T$ is the laser period) and its peak Rabi frequency is $ \Omega_{0}=0.30\;\rm{a.u.} $. \cite{Kalosha-Two-Level-PRL-1999}. 
+
 \section{Results and discussions}
+
 \subsection{non-propagation situation}
 First, as generally done \cite{CuiNi2010NJP-wavelet,Faria-Two-Level-Three-Step-PRA-2002,Gauthey-Early-Two-Level-PRA-1997,Gong-Two-Level-Two-Color-JMO-1999,Kaplan-Early-Two-Level-PRA-1994,LiuChengpu-Two-Level-PRA-2004,YangWeifeng-Two-Level-PLA-2007,ZengZhinan-Two-Color-PRL-2007,WANG-ZHONG-YANG-Two-Level-Attosecond-generation-1999}, the propagation effect is temporally neglected and only the single-particle-response is considered . 
 
@@ -303,20 +295,22 @@ It has been well clarified that, as for a two-level atomic system, the occurrenc
 	{{\varepsilon _ - }}&0\\
 	0&{{\varepsilon _ + }}
 	\end{array}} \right),
-\label{eq14}
+\label{eq12}
 \end{equation}
 with the field-dressed level energies \cite{YangWeifeng-Two-Level-PLA-2007}
 
 \begin{equation}
 {\varepsilon _ \pm } = \frac{1}{2}\left( { - \frac{{{\mu _{11}} + {\mu _{22}}}}{{{\mu _{21}}}}\Omega \left( t \right) \pm \sqrt {{{\left[ {2\xi \Omega \left( t \right) - {\omega _0}} \right]}^2} + {{\left[ {2\Omega \left( t \right)} \right]}^2}} } \right),
-\label{eq15}
+\label{eq13}
 \end{equation}
 and the frequency of harmonic emitted at time $t$ is determined by the transient energy separation of these two states,
 \begin{equation}
-\omega(t)  = {\varepsilon _ + } - {\varepsilon _ - } = \sqrt {{{\left[ {2\xi \Omega \left( t \right) - {\omega _0}} \right]}^2} + {{\left[ {2\Omega \left( t \right)} \right]}^2}}  = N{\omega _L}.
-\label{eq16}
+\omega(t)  = N{\omega _L}  = {\varepsilon _ + } - {\varepsilon _ - } = \sqrt {{{\left[ {2\xi \Omega \left( t \right) - {\omega _0}} \right]}^2} + {{\left[ {2\Omega \left( t \right)} \right]}^2}}.
+\label{eq14}
 \end{equation}
-Where, $N$ is the harmonic order. Formula (\ref{eq16}) clearly indicates that the harmonic frequency varies over time and would have a maximum value $\omega_{\textrm{max}}$ with a cutoff order $N_{\textrm{max}}$ at time $t_{\textrm{max}}$ which can be found with the help of the $\omega-t$ plot curve.
+Formula (\ref{eq14}) indicates that the harmonic frequency varies over time and would have a maximum value $\omega_{\textrm{max}}$ (with a cutoff order $N_{\textrm{max}}$) at time $t_{\textrm{max}}$ which can be found with the help of the $\omega-t$ plot curve.
+
+If the two-level system has no permanent dipole moment existing and the driving laser pulse is not chirped, the HHG spectrum is shown in Fig. \ref{fig1a}. It possesses the generic characteristics of a HHG spectrum: a plateau and a clear cutoff. The cutoff order is 11, which agree well with the predicted value $N_{\textrm{max}}$ [seen in the lower panel of Fig. \ref{fig1g})]. If the polar medium is considered, there will be a permanent dipole moment existing. As shown in Fig. \ref{fig1b} and \ref{fig1c}, the corresponding HHG spectrum will change significantly, even though the other parameters remain unchanged. Except the even order harmonic emission, the most significant change is the dramatical plateau extension as shown in the right two columns in Fig. \ref{fig1}. 
 
 \begin{figure}[h]
 	\centering
@@ -359,28 +353,26 @@ Where, $N$ is the harmonic order. Formula (\ref{eq16}) clearly indicates that th
 		\label{fig1i}
 		\includegraphics[width=0.3\textwidth,height=0.2\textwidth]{fig1i.eps}
 	}
-	\caption{HHG spectra of a laser-driven two-level system with (a) $\mu_{11}=\mu_{22}=0 (\xi=0)$ (b) $\mu_{11}=-4\mu_{21},\mu_{22}=4\mu_{21} (\xi=4)$, (c) $\mu_{11}=4\mu_{21},\mu_{22}=-4\mu_{21} (\xi=-4)$. (d), (e) and (f) show their corresponding time-dependent eigenvalues of the two dressed states $\epsilon_{+}$ and $\epsilon_{-}$. (g), (h) and (i) show their corresponding time-frequency spectra via wavelet transforms, while the lower panel displays the time-dependent energy separation between the two dressed states $\epsilon_{+}-\epsilon_{-}$ (the harmonic energy predicted by two-level model) and the absolute amplitude of laser field. Parameters for this laser pulse are: central frequency $\omega_L=0.056\;\text{a.u.}$, duration $\tau=5.43\;\text{fs}$, and peak Rabi frequency $\Omega_0=0.30\;\text{a.u.}$.}
+	\caption{HHG analysis for three permanent dipole moments, $\mu_{11}=\mu_{22}=0(\xi=0)$ [the left column], $\mu_{11}=-\mu_{22}=-4\mu_{21} (\xi=4)$ [the middle column], and $\mu_{11}=-\mu_{22}=4\mu_{21}$ [the right column]. The uppermost row show the HHG spectra; the middle row show the time-dependent eigenvalues of the two dressed states $\epsilon_{+}$ and $\epsilon_{-}$; and the lowest row show the time-frequency spectra, while the lower panel shows the time-dependent energy separation between the two dressed states $\epsilon_{+}-\epsilon_{-}$ (the harmonic energy predicted by two-level model) and the laser pulse absolute amplitude. Parameters for this laser pulse are: central frequency $\omega_L=0.056\;\text{a.u.}$, duration $\tau=5.43\;\text{fs}$, and peak Rabi frequency $\Omega_0=0.30\;\text{a.u.}$.}
 	\label{fig1}
-\end{figure}
-\subsubsection{polar medium}
-If the two-level system has no permanent dipole moment existing, that is, $\xi=0$, and the driving laser pulse is not chirped, the numerical obtained HHG spectrum is shown in Fig. \ref{fig1a}. It possesses the generic characteristics of a HHG spectrum: a plateau and a clear cutoff. The cutoff order is 11, which agree well with the predicted value $N_{\textrm{max}}$ [seen in lower panel of Fig. \ref{fig1g})].
+\end{figure} 
 
-Now, if the polar medium is considered, there will be a permanent dipole moment existing. As shown in Fig. \ref{fig1b} and \ref{fig1c}, the corresponding HHG spectrum will change significantly, even though the other laser and medium parameters remain unchanged. For example, if the permanent dipole moment is $\mu_{11} =-4\mu_{21},\;\mu_{11} =4\mu_{21}(\xi=4)$ as shown in the middle column of Fig. \ref{fig1}, the cutoff harmonic order is extended to be about 40th, which also agree well with the prediction value $N_\textrm{max}$ [seen in lower panel of Fig. \ref{fig1h}]. If the permanent dipole moment is large enough [e.g., $\mu_{11} =0,\;\mu_{11} =16\mu_{21}(\xi=8)$], the cutoff order can be further extended to the soft X-ray range, which would provide a possibility to generate a much shorter IAP or APT by synthesizing much more harmonics. It is found from the comparison between the right two columns of Fig. \ref{fig1} that, the harmonic generation process is sensitive to the property of initial permanent dipole moment: for negative $\xi$ (seen in the right column), the cutoff harmonic is emitted only at laser field peak time, while for positive $\xi$ (seen in the middle column), it is emitted at both sides of the peak with about $0.5T$ interval to the peak time. In addition, Figs. \ref{fig1g}, \ref{fig1h} and \ref{fig1i} clearly demonstrate that the time-frequency HHG spectrum shares the same shape with the laser pulse absolute amplitude \cite{CuiNi2010NJP-wavelet}. Even though there's little difference existing for the case of positive initial permanent dipole moment (positive $\xi$), but at least the minimum time and peak time of the time-frequency spectrum are totally same with those of the laser pulse absolute amplitude.      
-
-However, we note that, seen from Figs. \ref{fig1h} and \ref{fig1i}, even though the harmonic cutoff energy can be largely extended, the HHG spectra exhibit more than five well-formed individual peak structures in the plateau region, which means that the plateau harmonics have more than ten quantum trajectories (five long trajectories and five short trajectories). If one select these plateau harmonics to synthesize an attosecond pulse, there're would have about ten individual peaks. That is an APT. However, people have been dedicated to obtain an IAP with short duration for many years \cite{IAP-reference1-1998,Sansone-Polarization-gate-Nature-2006,IAP-reference2-2008,IAP-reference3-2008,IAP-reference4-2012}. Therefore, if the plateau harmonic's quantum trajectory number is reduced, an APT with less peaks even an IAP may be generated. In the following, a nonlinear chirped frequency is introduced to the driving laser pulse and is expected to reduce the trajectory number. 
+Besides, comparing the right two columns, it is found that the harmonic generation process is also sensitive to the property of permanent dipole moment: for negative $\xi$ (the right column), the cutoff harmonic is emitted only at laser pulse peak time, while for positive $\xi$ (the middle column), it is emitted at both sides of the peak with about $0.5T$ interval to the peak time. As we know that, this phenomenon has not been mentioned before. But it is easy understood using formula (\ref{eq14}): according to the mathematical theory, for different given $\xi$, $\omega_{\rm{max}}$ may occur at different time point. In addition, as shown in the lower panels of the lowest row figures, the time-frequency HHG spectrum shares the same temporal shape with the laser pulse absolute amplitude \cite{CuiNi2010NJP-wavelet}. Even though there's little difference existing for the case of positive $\xi$, but at least the minimum time and peak time of the time-frequency spectrum are totally same with those of the laser pulse absolute amplitude as the vertical dashed lines shown. 
+    
 \subsubsection{introduce of the chirp}
+Note that, as shown in Figs. \ref{fig1h} and \ref{fig1i}, even though the harmonic cutoff energy can be largely extended, the HHG spectra exhibit more than five well-formed individual peak structures in the plateau region, which means that the plateau harmonics have more than ten quantum trajectories (five long trajectories and five short trajectories). If one select these plateau harmonics to synthesize an attosecond pulse, there would be a APT with ten individual peaks generated. However, people have been dedicated to obtain an IAP with short duration for many years \cite{IAP-reference1-1998,Sansone-Polarization-gate-Nature-2006,IAP-reference2-2008,IAP-reference3-2008,IAP-reference4-2012}. If there's a method which can reduce the plateau harmonic's quantum trajectory number, an APT with less peaks or even an IAP may be generated. As we know that the laser pulse can be shaped by introducing the chirped frequency. Since the time-frequency HHG spectrum shares the same shape with the laser pulse absolute amplitude, we expect the chirp introducing could reduce the quantum trajectory number. 
 
-The chirp chosen is with a hyperbolic tangent form \cite{Carrera-Chirp-PRA-2007}, and the time-dependent carrier envelope phase $ \varphi(t) $ in Eq. (\ref{eq3}) is then written as:
+The chirp chosen is with a hyperbolic tangent form, and the time-dependent carrier envelope phase $ \varphi(t) $ in Eq. (\ref{eq3}) is then written as:
 
 \begin{equation}
 \varphi \left( t \right) =  - \eta \tanh \left[ {{{\left( {t - {t_d}} \right)} \mathord{\left/
 			{\vphantom {{\left( {t - {t_d}} \right)} {{\tau _c}}}} \right.
 			\kern-\nulldelimiterspace} {{\tau _c}}}} \right].
-\label{eq17}
+\label{eq15}
 \end{equation}
-Where $ \tau_{\rm{c}} $ is the steepness of the chirp function and $ t_{\rm{d}} $ is set at the middle of the sweep here. $ \eta $  denotes the frequency sweeping range. If $ \eta=0 $, driving pulse is chirp free. 
+Where $ \tau_{\rm{c}} $ is the steepness of the chirp function and $ t_{\rm{d}} $ is set at the middle of the sweep here. $ \eta $  denotes the frequency sweeping range. If $ \eta=0 $, driving pulse is chirp free. This is chirp form has been used by many other researchers \cite{Carrera-Chirp-PRA-2007,CuiNi2010NJP-wavelet,Chirp-Reference-2013PRA}.
 
-With a chirp, as shown in Fig. \ref{fig2a}, the laser pulse's temporal shape changes significantly to that without chirp, and its origin oscillatory periodicity and up-down symmetry disappear: the central part of the carrier wave gets broader, the side parts become weaker, while the peak amplitude is remained. Importantly, the introduce of chirp makes the absolute amplitude difference between the pulse central peak and its neighbored ones get larger. According to the rapid level crossing theory, the time-frequency HHG spectrum shares the same shape with the laser pulse absolute amplitude \cite{CuiNi2010NJP-wavelet}. Therefore, if the initial permanent dipole moment $\xi$ is negative, it's easy to speculate that the HHG spectrum would have a large plateau whose harmonics have only two quantum trajectories at most. This trajectory number is much less than that of the case without chirp shown in Figs. \ref{fig1h} and \ref{fig1i}. Thus, an APT with only two peaks can be synthesized using these plateau harmonics. However, it can be seen from Fig. \ref{fig2a} that, the introduce of chirp has weakened steepness of the laser pulse peak's rising and falling edges because of the increase of time interval between the peak time and its adjacent zero time which results from the getting broader of the center carrier. As mentioned before, the time-frequency HHG spectrum shares the same shape with the laser pulse absolute amplitude. Therefore, this steepness weakening could lead to the enlargement of atto-chirp \cite{attochirp-ref1-2003,attochirp-ref2-2007,attochirp-ref3-2009} for both long and short quantum trajectories, and this can increase the duration for both peaks of generated APT. However, it is contradictory for the center carrier to get narrower and for the absolute amplitude difference between the pulse central peak and its neighbored ones to get larger. Thus, a proper group of chirp parameters are chosen here as $\eta=6.25,\;\tau_{\rm{c}}=120$, which can make the absolute amplitude difference quite large and the center carrier not too broad, just as shown in Fig. \ref{fig2a}.
+With a chirp, as shown in Fig. \ref{fig2a}, the laser pulse's temporal shape changes significantly to that without chirp, and its origin oscillatory periodicity and up-down symmetry disappear: the central part of the carrier wave gets broader, the side parts become weaker, while the peak amplitude is remained. Importantly, the introduce of chirp makes the absolute amplitude difference between the pulse central peak and its neighbored ones get larger. According to the rapid level crossing theory, the time-frequency HHG spectrum shares the same shape with the laser pulse absolute amplitude \cite{CuiNi2010NJP-wavelet}. Therefore, if the permanent dipole moment is $\mu_{11}=-\mu_{22}=4\mu_{21}(\xi=-4)$ as the right column in Fig. \ref{fig1}, it's easy to speculate that the HHG spectrum would have a large plateau whose harmonics have only two quantum trajectories at most. This trajectory number is much less than that of the case without chirp. Thus, an APT with only two peaks can be synthesized using these plateau harmonics. However, it can be seen from Fig. \ref{fig2a} that, the introduce of chirp has weakened steepness of the laser pulse peak's rising and falling edges which results from the getting broader of the center carrier. As mentioned before, the time-frequency HHG spectrum shares the same shape with the laser pulse absolute amplitude. Therefore, this steepness weakening may lead to the enlargement of atto-chirp \cite{attochirp-ref1-2003,attochirp-ref2-2007,attochirp-ref3-2009} for both long and short quantum trajectories, and this can increase the duration for both peaks of generated APT. However, it is contradictory for the center carrier to get narrower and for the absolute amplitude difference between the pulse central peak and its neighbored ones to get larger. Thus, a proper group of chirp parameters are chosen here as $\eta=6.25,\;\tau_{\rm{c}}=120$, which can make the absolute amplitude difference quite large and the center carrier not too broad, as shown in Fig. \ref{fig2a}.
 
 \begin{figure}[!htbp]
 	\centering
@@ -400,9 +392,9 @@ With a chirp, as shown in Fig. \ref{fig2a}, the laser pulse's temporal shape cha
 	\label{fig2}
 \end{figure}
 
-Fig. \ref{fig2b} shows the HHG spectrum of the two-level polar medium [$\mu_{11}=4,\;\mu_{22}=-4(\xi=-4)$] driven by a chirped laser pulse. Compared to the case shown in Fig. \ref{fig1c} the only difference is the introduce of the chirp. Its corresponding time-frequency profile of the harmonic spectrum is shown in Fig. \ref{fig2c}. Since the initial permanent dipole moment $\xi$ is negative, the cutoff harmonic should emit at peak time of the laser pulse. In addition, the introduce of chirp doesn't change the laser pulse envelope ($E_{0}$ and $\Omega_0$ remain invariant). According to Eq. \ref{eq16}, the harmonic spectra should have the same cutoff energy as the case shown in Fig. \ref{fig1i}. This is confirmed by the numerical results in Figs. \ref{fig2b} and \ref{fig2c}. Because of the pulse shape changes mentioned before, there are only two well-formed individual peak structures besides the central peak in the time-frequency spectrum while the case without chirp has four ones. Moreover, these peak values are much smaller than those of case without chirp, this makes the value difference between the central peak and the sub-peak much larger than that of case without chirp shown in Fig. \ref{fig1i}. Therefore, within a large plateau region, the harmonics would have two quantum trajectories. Therefore, one can use harmonics within this region to synthesize an APT with only two individual peaks. 
+Fig. \ref{fig2b} shows the corresponding HHG spectrum of the two-level polar medium [$\mu_{11}=-\mu_{22}=4\mu_{21}(\xi=-4)$]. Its time-frequency profile is shown in Fig. \ref{fig2c}. With the same permanent dipole moment, the cutoff harmonic should emit at laser pulse peak time as shown in Fig. \ref{fig1i}. Therefore, according to Eq. \ref{eq14}, the harmonic spectra should have the same cutoff energy with the non-chirp case. This is confirmed by the numerical simulation results in Figs. \ref{fig2b} and \ref{fig2c}. There are only two well-formed individual peak structures besides the central peak in the time-frequency spectrum while the case without chirp has four ones. Moreover, these peak values are much smaller than those of case without chirp, this makes the value difference between the central peak and the sub-peak much larger than that of non-chirp case shown in Fig. \ref{fig1i}. Therefore, within a large plateau region, the harmonics would have two quantum trajectories. One can use harmonics within this region to synthesize an APT with only two individual peaks.  
 
-Then, the plateau harmonics generated from the polar system [$\mu_{11}=4,\;\mu_{22}=-4(\xi=-4)$] will be selected to synthesize attosecond pulses for both cases with and without chirp. All the harmonics (including the even orders) from 14th to 29th are selected for both cases. The results are shown in Figs. \ref{fig3a} and \ref{fig3b}, respectively. Every duration value of all peaks is marked in the figures. There is an APT generated with ten individual peaks for the case without chirp, while there is an APT generated which has only two individual peaks (we call it attosecond pulse pair, APP). This is completely consistent with the quantum trajectory numbers in the plateau region (shown in Figs. \ref{fig1i} and \ref{fig2c}). Therefore, we have successfully reduced the individual peak numbers of the generated APT by introducing chirp frequency to the driving laser pulse. However, there is no an IAP generated. In addition, as shown in Fig. \ref{fig3b}, the increase of durations for both two center peaks confirms that the chirp frequency could enlarge the atto-chirp.
+Consequently, we will use the plateau harmonics to synthesize attosecond pulses inorder to verify our conjecture. Both cases with and without chirp are investigated for comparison. All the harmonics (including the even orders) from 14th to 29th are selected for both cases. The results are shown in Fig. \ref{fig3}. Every duration value of all peaks is marked in the figures. There is an APT generated with ten individual peaks for the case without chirp, while there is an APT generated which has only two individual peaks (we call it attosecond pulse pair, APP). This is completely consistent with the quantum trajectory numbers in the plateau region (shown in Figs. \ref{fig1i} and \ref{fig2c}). Therefore, we have successfully reduced the individual peak numbers of the generated APT by introducing chirp frequency to the driving laser pulse. However, there is no an IAP generated. In addition, as shown in Fig. \ref{fig3b}, the increase of durations for both two center peaks confirms that the chirp frequency could enlarge the atto-chirp.
 
 \begin{figure}[!htbp]
 	\centering
